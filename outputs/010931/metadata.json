@@ -1,0 +1,13 @@
+[
+  {
+    "file": "top_0.png",
+    "raw_category": "short sleeve top",
+    "normalized_category": "top",
+    "bbox": [
+      1,
+      198,
+      467,
+      701
+    ]
+  }
+]

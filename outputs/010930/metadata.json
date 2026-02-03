@@ -1,0 +1,24 @@
+[
+  {
+    "file": "bottom_0.png",
+    "raw_category": "shorts",
+    "normalized_category": "bottom",
+    "bbox": [
+      275,
+      611,
+      639,
+      959
+    ]
+  },
+  {
+    "file": "top_1.png",
+    "raw_category": "short sleeve top",
+    "normalized_category": "top",
+    "bbox": [
+      23,
+      245,
+      594,
+      821
+    ]
+  }
+]
