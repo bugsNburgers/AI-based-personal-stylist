@@ -22,8 +22,14 @@ print("[INFO] CLIP loaded on CPU")
 # EMBED ONE IMAGE
 # =========================
 def embed_image(img_path):
-    image = Image.open(img_path).convert("RGBA")
-    image = preprocess(image).unsqueeze(0).to(DEVICE)
+    # Garment crops are saved as transparent PNGs (RGBA). CLIP expects RGB.
+    # If we convert RGBA->RGB directly, transparency is typically filled with black,
+    # which re-introduces a background bias. Composite onto a neutral background first.
+    image_rgba = Image.open(img_path).convert("RGBA")
+    white_bg = Image.new("RGBA", image_rgba.size, (255, 255, 255, 255))
+    image_rgb = Image.alpha_composite(white_bg, image_rgba).convert("RGB")
+
+    image = preprocess(image_rgb).unsqueeze(0).to(DEVICE)
 
     with torch.no_grad():
         embedding = model.encode_image(image)
