@@ -7,7 +7,6 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-Latest-red.svg)](https://pytorch.org/)
 [![CLIP](https://img.shields.io/badge/Model-CLIP-green.svg)](https://github.com/openai/CLIP)
-[![License](https://img.shields.io/badge/Status-Private-orange.svg)]()
 
 </div>
 
