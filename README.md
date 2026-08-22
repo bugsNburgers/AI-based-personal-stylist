@@ -24,6 +24,22 @@ The long-term goal of the system is to analyze a real user outfit image, underst
 
 ---
 
+AI-Powered Personal Stylist is a fashion analysis and recommendation system that evaluates a person’s outfit based on **visual compatibility and current fashion trends**.
+
+The system analyzes the garments in an outfit, uses a **Graph Neural Network (GNN)** to understand how the garments work together, and uses **time-based Pinterest fashion data** to determine whether the styles are currently trending.
+
+Based on the analysis, the system identifies potential weak points in the outfit and recommends suitable replacements that are both **compatible with the existing outfit and aligned with current trends**.
+
+## Key Features
+
+- Outfit compatibility analysis using GNN
+- Visual feature extraction using CLIP
+- Temporal fashion trend analysis using Pinterest
+- Weak-garment identification
+- Trend-aware garment recommendations
+- Explainable outfit analysis
+---
+
 ## 🎯 What is Implemented So Far (Current Scope)
 
 The project currently implements a robust garment extraction and representation pipeline using the **DeepFashion2** dataset and **CLIP** embeddings.
@@ -184,10 +200,3 @@ The following components are planned for later stages:
 ✅ Garment segmentation & extraction  
 ✅ Visual embeddings (CLIP)
 
----
-
-<div align="center">
-
-**Built with 💙 for Fashion AI Research**
-
-</div>
