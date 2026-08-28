@@ -1,8 +1,9 @@
 __pycache__/
 *.pyc
 .env
-.venv
+.venv/
 checkpoints/
-Capstone - Shortcut.lnk
+*.lnk
 *.pt
 *.onnx
+*.log
