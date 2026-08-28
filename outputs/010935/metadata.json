@@ -1,0 +1,152 @@
+[
+  {
+    "file": "shorts_0.png",
+    "category": "shorts",
+    "specific_category": "shorts",
+    "broad_category": "bottom",
+    "raw_category": "shorts",
+    "confidence": 0.8476,
+    "bbox": [
+      78,
+      633,
+      420,
+      888
+    ],
+    "crop_path": "outputs\\010935\\shorts_0.png"
+  },
+  {
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "confidence": 0.7398,
+    "bbox": [
+      146,
+      267,
+      587,
+      720
+    ],
+    "crop_path": "outputs\\010935\\t_shirt_0.png"
+  },
+  {
+    "file": "dress_0.png",
+    "category": "dress",
+    "specific_category": "dress",
+    "broad_category": "dress",
+    "raw_category": "dress",
+    "confidence": 0.5264,
+    "bbox": [
+      76,
+      263,
+      586,
+      843
+    ],
+    "crop_path": "outputs\\010935\\dress_0.png"
+  },
+  {
+    "file": "stockings_0.png",
+    "category": "stockings",
+    "specific_category": "stockings",
+    "broad_category": "bottom",
+    "raw_category": "tights, stockings",
+    "confidence": 0.441,
+    "bbox": [
+      19,
+      789,
+      134,
+      960
+    ],
+    "crop_path": "outputs\\010935\\stockings_0.png"
+  },
+  {
+    "file": "bag_0.png",
+    "category": "bag",
+    "specific_category": "bag",
+    "broad_category": "bag",
+    "raw_category": "bag, wallet",
+    "confidence": 0.4337,
+    "bbox": [
+      256,
+      335,
+      515,
+      906
+    ],
+    "crop_path": "outputs\\010935\\bag_0.png"
+  },
+  {
+    "file": "headband_0.png",
+    "category": "headband",
+    "specific_category": "headband",
+    "broad_category": "accessory",
+    "raw_category": "headband, head covering, hair accessory",
+    "confidence": 0.4105,
+    "bbox": [
+      438,
+      28,
+      531,
+      91
+    ],
+    "crop_path": "outputs\\010935\\headband_0.png"
+  },
+  {
+    "file": "headband_1.png",
+    "category": "headband",
+    "specific_category": "headband",
+    "broad_category": "accessory",
+    "raw_category": "headband, head covering, hair accessory",
+    "confidence": 0.3249,
+    "bbox": [
+      422,
+      32,
+      539,
+      102
+    ],
+    "crop_path": "outputs\\010935\\headband_1.png"
+  },
+  {
+    "file": "stockings_1.png",
+    "category": "stockings",
+    "specific_category": "stockings",
+    "broad_category": "bottom",
+    "raw_category": "tights, stockings",
+    "confidence": 0.3102,
+    "bbox": [
+      42,
+      862,
+      230,
+      960
+    ],
+    "crop_path": "outputs\\010935\\stockings_1.png"
+  },
+  {
+    "file": "glasses_0.png",
+    "category": "glasses",
+    "specific_category": "glasses",
+    "broad_category": "accessory",
+    "raw_category": "glasses",
+    "confidence": 0.2912,
+    "bbox": [
+      381,
+      24,
+      527,
+      137
+    ],
+    "crop_path": "outputs\\010935\\glasses_0.png"
+  },
+  {
+    "file": "headband_2.png",
+    "category": "headband",
+    "specific_category": "headband",
+    "broad_category": "accessory",
+    "raw_category": "headband, head covering, hair accessory",
+    "confidence": 0.2673,
+    "bbox": [
+      390,
+      24,
+      517,
+      99
+    ],
+    "crop_path": "outputs\\010935\\headband_2.png"
+  }
+]

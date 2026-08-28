@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 import os
 from matplotlib import cm
 
-# =========================
 # CATEGORY MAP
-# =========================
+
 CATEGORY_MAP = {
     1: "short sleeve top",
     2: "long sleeve top",
@@ -24,9 +23,9 @@ CATEGORY_MAP = {
     13: "sling dress"
 }
 
-# =========================
+
 # NORMALIZED CATEGORY
-# =========================
+
 def normalize_category(name):
     name = name.lower()
     if "dress" in name:
@@ -37,23 +36,23 @@ def normalize_category(name):
         return "outerwear"
     return "top"
 
-# =========================
+
 # COLORS FOR VIS
-# =========================
+
 COLORS = (cm.tab20(np.linspace(0, 1, 20))[:, :3] * 255).astype(int)
 
-# =========================
+
 # POLYGON → MASK
-# =========================
+
 def polygon_to_mask(seg, h, w):
     mask = np.zeros((h, w), dtype=np.uint8)
     pts = np.array(seg).reshape(-1, 2).astype(np.int32)
     cv2.fillPoly(mask, [pts], 255)
     return mask
 
-# =========================
+
 # MASK + BBOX → RGBA
-# =========================
+
 def extract_garment(img, mask, bbox):
     x1, y1, x2, y2 = bbox
     crop_img = img[y1:y2, x1:x2]
@@ -64,9 +63,9 @@ def extract_garment(img, mask, bbox):
     rgba[:, :, 3] = alpha
     return rgba
 
-# =========================
+
 # MAIN FUNCTION (ENTRYPOINT)
-# =========================
+
 def visualize(
     image_id,
     base_path="C:/Users/Suprateek Yawagal/Downloads/Capstone/Train/train",

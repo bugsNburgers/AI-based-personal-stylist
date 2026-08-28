@@ -1,24 +1,17 @@
 [
   {
-    "file": "bottom_0.png",
-    "raw_category": "shorts",
-    "normalized_category": "bottom",
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "confidence": 0.5759,
     "bbox": [
-      233,
-      194,
-      269,
-      236
-    ]
-  },
-  {
-    "file": "top_1.png",
-    "raw_category": "short sleeve top",
-    "normalized_category": "top",
-    "bbox": [
-      234,
-      148,
-      270,
-      195
-    ]
+      227,
+      183,
+      258,
+      231
+    ],
+    "crop_path": "outputs\\010936\\t_shirt_0.png"
   }
 ]

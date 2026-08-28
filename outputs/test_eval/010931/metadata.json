@@ -1,0 +1,15 @@
+[
+  {
+    "file": "bottom_0.png",
+    "raw_category": "pants",
+    "normalized_category": "bottom",
+    "confidence": 0.3074,
+    "bbox": [
+      0,
+      394,
+      467,
+      702
+    ],
+    "crop_path": "outputs/test_eval\\010931\\bottom_0.png"
+  }
+]

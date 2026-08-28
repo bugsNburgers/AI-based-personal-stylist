@@ -1,0 +1,32 @@
+[
+  {
+    "file": "pants_0.png",
+    "category": "pants",
+    "specific_category": "pants",
+    "broad_category": "bottom",
+    "raw_category": "pants",
+    "confidence": 0.3192,
+    "bbox": [
+      0,
+      542,
+      638,
+      960
+    ],
+    "crop_path": "outputs\\010934\\pants_0.png"
+  },
+  {
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "confidence": 0.2709,
+    "bbox": [
+      0,
+      401,
+      638,
+      960
+    ],
+    "crop_path": "outputs\\010934\\t_shirt_0.png"
+  }
+]

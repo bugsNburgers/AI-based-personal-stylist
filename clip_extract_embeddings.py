@@ -1,26 +1,22 @@
+
 import os
 import numpy as np
 import torch
 import clip
 from PIL import Image
 
-# =========================
+
 # CONFIG
-# =========================
+
 OUTPUTS_DIR = "outputs"
 DEVICE = "cpu"   # CPU only (explicit)
 
-# =========================
 # LOAD CLIP MODEL
-# =========================
 print("[INFO] Loading CLIP model...")
 model, preprocess = clip.load("ViT-B/32", device=DEVICE)
 model.eval()
 print("[INFO] CLIP loaded on CPU")
 
-# =========================
-# EMBED ONE IMAGE
-# =========================
 def embed_image(img_path):
     # Garment crops are saved as transparent PNGs (RGBA). CLIP expects RGB.
     # If we convert RGBA->RGB directly, transparency is typically filled with black,
@@ -37,9 +33,6 @@ def embed_image(img_path):
 
     return embedding.cpu().numpy()[0]
 
-# =========================
-# MAIN LOOP
-# =========================
 if __name__ == "__main__":
     for image_id in os.listdir(OUTPUTS_DIR):
         image_folder = os.path.join(OUTPUTS_DIR, image_id)

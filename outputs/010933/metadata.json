@@ -1,0 +1,17 @@
+[
+  {
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "confidence": 0.9875,
+    "bbox": [
+      0,
+      290,
+      466,
+      702
+    ],
+    "crop_path": "outputs\\010933\\t_shirt_0.png"
+  }
+]

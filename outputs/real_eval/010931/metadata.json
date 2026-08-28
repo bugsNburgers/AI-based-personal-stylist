@@ -1,0 +1,41 @@
+[
+  {
+    "file": "bottom_0.png",
+    "raw_category": "pants",
+    "normalized_category": "bottom",
+    "confidence": 0.3074,
+    "bbox": [
+      0,
+      394,
+      467,
+      702
+    ],
+    "crop_path": "outputs/real_eval\\010931\\bottom_0.png"
+  },
+  {
+    "file": "top_0.png",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "normalized_category": "top",
+    "confidence": 0.2857,
+    "bbox": [
+      0,
+      302,
+      467,
+      702
+    ],
+    "crop_path": "outputs/real_eval\\010931\\top_0.png"
+  },
+  {
+    "file": "accessory_0.png",
+    "raw_category": "watch",
+    "normalized_category": "accessory",
+    "confidence": 0.2675,
+    "bbox": [
+      2,
+      211,
+      68,
+      288
+    ],
+    "crop_path": "outputs/real_eval\\010931\\accessory_0.png"
+  }
+]

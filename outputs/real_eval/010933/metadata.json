@@ -1,0 +1,15 @@
+[
+  {
+    "file": "top_0.png",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "normalized_category": "top",
+    "confidence": 0.9875,
+    "bbox": [
+      0,
+      290,
+      466,
+      702
+    ],
+    "crop_path": "outputs/real_eval\\010933\\top_0.png"
+  }
+]

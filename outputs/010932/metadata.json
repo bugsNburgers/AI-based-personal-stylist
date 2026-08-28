@@ -1,24 +1,47 @@
 [
   {
-    "file": "bottom_0.png",
-    "raw_category": "shorts",
-    "normalized_category": "bottom",
+    "file": "dress_0.png",
+    "category": "dress",
+    "specific_category": "dress",
+    "broad_category": "dress",
+    "raw_category": "dress",
+    "confidence": 0.881,
     "bbox": [
-      0,
-      462,
-      367,
-      959
-    ]
+      2,
+      14,
+      634,
+      956
+    ],
+    "crop_path": "outputs\\010932\\dress_0.png"
   },
   {
-    "file": "top_1.png",
-    "raw_category": "short sleeve top",
-    "normalized_category": "top",
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "top, t-shirt, sweatshirt",
+    "confidence": 0.8519,
     "bbox": [
-      6,
-      12,
-      636,
-      646
-    ]
+      0,
+      8,
+      630,
+      592
+    ],
+    "crop_path": "outputs\\010932\\t_shirt_0.png"
+  },
+  {
+    "file": "skirt_0.png",
+    "category": "skirt",
+    "specific_category": "skirt",
+    "broad_category": "bottom",
+    "raw_category": "skirt",
+    "confidence": 0.8501,
+    "bbox": [
+      0,
+      475,
+      585,
+      960
+    ],
+    "crop_path": "outputs\\010932\\skirt_0.png"
   }
 ]
