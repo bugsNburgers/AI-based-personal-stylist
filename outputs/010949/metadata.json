@@ -1,0 +1,50 @@
+[
+  {
+    "file": "hat_0.png",
+    "category": "hat",
+    "specific_category": "hat",
+    "broad_category": "accessory",
+    "raw_category": "Hat",
+    "confidence": 0.95,
+    "pixel_count": 3178,
+    "bbox": [
+      438,
+      33,
+      536,
+      108
+    ],
+    "crop_path": "outputs\\010949\\hat_0.png"
+  },
+  {
+    "file": "sweater_0.png",
+    "category": "sweater",
+    "specific_category": "sweater",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.5276,
+    "pixel_count": 5299,
+    "bbox": [
+      426,
+      171,
+      517,
+      270
+    ],
+    "crop_path": "outputs\\010949\\sweater_0.png"
+  },
+  {
+    "file": "skirt_0.png",
+    "category": "skirt",
+    "specific_category": "skirt",
+    "broad_category": "bottom",
+    "raw_category": "Skirt",
+    "confidence": 0.95,
+    "pixel_count": 43396,
+    "bbox": [
+      191,
+      254,
+      498,
+      485
+    ],
+    "crop_path": "outputs\\010949\\skirt_0.png"
+  }
+]

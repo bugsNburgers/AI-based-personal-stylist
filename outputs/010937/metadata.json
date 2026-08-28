@@ -1,0 +1,34 @@
+[
+  {
+    "file": "shirt_blouse_0.png",
+    "category": "shirt_blouse",
+    "specific_category": "shirt_blouse",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.3132,
+    "pixel_count": 142818,
+    "bbox": [
+      0,
+      68,
+      549,
+      509
+    ],
+    "crop_path": "outputs\\010937\\shirt_blouse_0.png"
+  },
+  {
+    "file": "dress_0.png",
+    "category": "dress",
+    "specific_category": "dress",
+    "broad_category": "dress",
+    "raw_category": "Dress",
+    "confidence": 0.95,
+    "pixel_count": 8710,
+    "bbox": [
+      77,
+      126,
+      493,
+      504
+    ],
+    "crop_path": "outputs\\010937\\dress_0.png"
+  }
+]

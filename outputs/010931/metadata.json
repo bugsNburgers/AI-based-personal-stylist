@@ -1,32 +1,18 @@
 [
   {
-    "file": "sunglasses_0.png",
-    "category": "sunglasses",
-    "specific_category": "sunglasses",
-    "broad_category": "accessory",
-    "raw_category": "sunglasses",
-    "confidence": 0.817,
-    "bbox": [
-      290,
-      0,
-      467,
-      87
-    ],
-    "crop_path": "outputs\\010931\\sunglasses_0.png"
-  },
-  {
-    "file": "sweater_0.png",
-    "category": "sweater",
-    "specific_category": "sweater",
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
     "broad_category": "top",
-    "raw_category": "sweater",
-    "confidence": 0.483,
+    "raw_category": "Upper-clothes",
+    "confidence": 0.6992,
+    "pixel_count": 137004,
     "bbox": [
-      2,
+      0,
       291,
-      461,
+      468,
       702
     ],
-    "crop_path": "outputs\\010931\\sweater_0.png"
+    "crop_path": "outputs\\010931\\t_shirt_0.png"
   }
 ]

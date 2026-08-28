@@ -27,7 +27,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-from yolo_detect_and_crop import process_image, DEFAULT_MODEL_NAME
+from yolo_detect_and_crop import process_image as process_image_yolo, DEFAULT_MODEL_NAME
+from fashion_segmenter import process_image_segformer
 from clip_extract_embeddings import extract_folder_embeddings
 
 
@@ -36,7 +37,7 @@ def run_single_image(
     image_id: Optional[str] = None,
     output_root: str = "outputs",
     conf_threshold: float = 0.20,
-    model_name: str = DEFAULT_MODEL_NAME,
+    model_name: str = "segformer",
     specific: bool = True,
     remove_bg: bool = True,
     device: Optional[str] = None
@@ -45,11 +46,10 @@ def run_single_image(
     Runs the complete pipeline for a single real image.
 
     Steps:
-      1. Detect garments with YOLO-World / YOLOS.
-      2. Normalize categories (jacket, blouse, pants, shorts, skirt, dress, shoe, bag, sunglasses, etc.).
-      3. Crop and extract transparent RGBA garment PNGs (high-res U2Net background removal).
-      4. Save metadata.json and visual overlay <image_id>_vis.jpg.
-      5. Compute 512-D normalized CLIP vector embeddings and save as .npy.
+      1. Fashion parsing with SegFormer-B2-Clothes + CLIP zero-shot subcategorization.
+      2. Pixel-accurate transparent RGBA garment PNGs.
+      3. Save metadata.json and visual overlay <image_id>_vis.jpg.
+      4. Compute 512-D normalized CLIP vector embeddings (.npy).
     """
     start_time = time.time()
     if image_id is None:
@@ -63,17 +63,25 @@ def run_single_image(
     print(f"  Confidence Thresh : {conf_threshold}")
     print(f"  Background Removal: {'Enabled (Transparent RGBA)' if remove_bg else 'Disabled (Raw BBox)'}")
 
-    # Stage 1-3: Detection + Crop + Transparency + Metadata
-    result = process_image(
-        image_path=image_path,
-        image_id=image_id,
-        output_root=output_root,
-        conf_threshold=conf_threshold,
-        model_name=model_name,
-        specific=specific,
-        remove_bg=remove_bg,
-        device=device
-    )
+    # Dispatch to SegFormer (default) or YOLO
+    if model_name.lower() in ["segformer", "clothes", "default"]:
+        result = process_image_segformer(
+            image_path=image_path,
+            output_root=output_root,
+            image_id=image_id,
+            device=device
+        )
+    else:
+        result = process_image_yolo(
+            image_path=image_path,
+            image_id=image_id,
+            output_root=output_root,
+            conf_threshold=conf_threshold,
+            model_name=model_name,
+            specific=specific,
+            remove_bg=remove_bg,
+            device=device
+        )
 
     out_folder = result["output_dir"]
 
@@ -158,7 +166,7 @@ def main():
     parser.add_argument("--image_id", type=str, default=None, help="Optional image ID override")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Output directory root (default: outputs)")
     parser.add_argument("--threshold", type=float, default=0.20, help="Detection confidence threshold (default: 0.20)")
-    parser.add_argument("--model", type=str, default="yolo-world", help="Detector model: 'yolo-world' or 'yolos'")
+    parser.add_argument("--model", type=str, default="segformer", help="Detector model: 'segformer' (default, SOTA), 'yolo-world', or 'yolos'")
     parser.add_argument("--broad", action="store_true", help="Use broad categories instead of specific garment names")
     parser.add_argument("--no_bg_removal", action="store_true", help="Disable transparent background removal")
     parser.add_argument("--batch_limit", type=int, default=None, help="Max images to process in batch mode")

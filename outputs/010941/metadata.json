@@ -1,0 +1,66 @@
+[
+  {
+    "file": "hat_0.png",
+    "category": "hat",
+    "specific_category": "hat",
+    "broad_category": "accessory",
+    "raw_category": "Hat",
+    "confidence": 0.95,
+    "pixel_count": 2049,
+    "bbox": [
+      328,
+      301,
+      398,
+      353
+    ],
+    "crop_path": "outputs\\010941\\hat_0.png"
+  },
+  {
+    "file": "shirt_blouse_0.png",
+    "category": "shirt_blouse",
+    "specific_category": "shirt_blouse",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.54,
+    "pixel_count": 10336,
+    "bbox": [
+      295,
+      386,
+      426,
+      519
+    ],
+    "crop_path": "outputs\\010941\\shirt_blouse_0.png"
+  },
+  {
+    "file": "skirt_0.png",
+    "category": "skirt",
+    "specific_category": "skirt",
+    "broad_category": "bottom",
+    "raw_category": "Skirt",
+    "confidence": 0.95,
+    "pixel_count": 8043,
+    "bbox": [
+      292,
+      482,
+      403,
+      597
+    ],
+    "crop_path": "outputs\\010941\\skirt_0.png"
+  },
+  {
+    "file": "shoe_0.png",
+    "category": "shoe",
+    "specific_category": "shoe",
+    "broad_category": "accessory",
+    "raw_category": "Shoe",
+    "confidence": 0.9,
+    "pixel_count": 592,
+    "bbox": [
+      244,
+      687,
+      298,
+      820
+    ],
+    "crop_path": "outputs\\010941\\shoe_0.png"
+  }
+]

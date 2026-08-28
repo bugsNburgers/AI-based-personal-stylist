@@ -1,47 +1,50 @@
 [
   {
-    "file": "skirt_0.png",
-    "category": "skirt",
-    "specific_category": "skirt",
-    "broad_category": "bottom",
-    "raw_category": "skirt",
-    "confidence": 0.4814,
-    "bbox": [
-      268,
-      663,
-      640,
-      952
-    ],
-    "crop_path": "outputs\\010930\\skirt_0.png"
-  },
-  {
-    "file": "sweater_0.png",
-    "category": "sweater",
-    "specific_category": "sweater",
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
     "broad_category": "top",
-    "raw_category": "sweater",
-    "confidence": 0.4784,
+    "raw_category": "Upper-clothes",
+    "confidence": 0.5194,
+    "pixel_count": 148054,
     "bbox": [
-      29,
-      280,
-      594,
-      898
+      26,
+      286,
+      592,
+      817
     ],
-    "crop_path": "outputs\\010930\\sweater_0.png"
+    "crop_path": "outputs\\010930\\t_shirt_0.png"
   },
   {
-    "file": "watch_0.png",
-    "category": "watch",
-    "specific_category": "watch",
-    "broad_category": "accessory",
-    "raw_category": "watch",
-    "confidence": 0.2621,
+    "file": "pants_0.png",
+    "category": "pants",
+    "specific_category": "pants",
+    "broad_category": "bottom",
+    "raw_category": "Pants",
+    "confidence": 0.9066,
+    "pixel_count": 63468,
     "bbox": [
-      149,
-      573,
-      219,
-      628
+      172,
+      693,
+      640,
+      960
     ],
-    "crop_path": "outputs\\010930\\watch_0.png"
+    "crop_path": "outputs\\010930\\pants_0.png"
+  },
+  {
+    "file": "bag_0.png",
+    "category": "bag",
+    "specific_category": "bag",
+    "broad_category": "accessory",
+    "raw_category": "Bag",
+    "confidence": 0.95,
+    "pixel_count": 4637,
+    "bbox": [
+      102,
+      211,
+      343,
+      514
+    ],
+    "crop_path": "outputs\\010930\\bag_0.png"
   }
 ]

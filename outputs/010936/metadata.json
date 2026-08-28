@@ -4,13 +4,14 @@
     "category": "skirt",
     "specific_category": "skirt",
     "broad_category": "bottom",
-    "raw_category": "skirt",
-    "confidence": 0.6935,
+    "raw_category": "Skirt",
+    "confidence": 0.95,
+    "pixel_count": 1000,
     "bbox": [
-      232,
-      192,
-      271,
-      235
+      235,
+      193,
+      268,
+      233
     ],
     "crop_path": "outputs\\010936\\skirt_0.png"
   }
