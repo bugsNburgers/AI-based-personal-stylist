@@ -5,12 +5,12 @@
     "specific_category": "skirt",
     "broad_category": "bottom",
     "raw_category": "skirt",
-    "confidence": 0.5978,
+    "confidence": 0.6935,
     "bbox": [
       232,
-      193,
+      192,
       271,
-      234
+      235
     ],
     "crop_path": "outputs\\010936\\skirt_0.png"
   }

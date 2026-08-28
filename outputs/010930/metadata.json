@@ -1,17 +1,47 @@
 [
   {
-    "file": "t_shirt_0.png",
-    "category": "t_shirt",
-    "specific_category": "t_shirt",
-    "broad_category": "top",
-    "raw_category": "top, t-shirt, sweatshirt",
-    "confidence": 0.6477,
+    "file": "skirt_0.png",
+    "category": "skirt",
+    "specific_category": "skirt",
+    "broad_category": "bottom",
+    "raw_category": "skirt",
+    "confidence": 0.4814,
     "bbox": [
-      13,
-      336,
-      598,
-      814
+      268,
+      663,
+      640,
+      952
     ],
-    "crop_path": "outputs\\010930\\t_shirt_0.png"
+    "crop_path": "outputs\\010930\\skirt_0.png"
+  },
+  {
+    "file": "sweater_0.png",
+    "category": "sweater",
+    "specific_category": "sweater",
+    "broad_category": "top",
+    "raw_category": "sweater",
+    "confidence": 0.4784,
+    "bbox": [
+      29,
+      280,
+      594,
+      898
+    ],
+    "crop_path": "outputs\\010930\\sweater_0.png"
+  },
+  {
+    "file": "watch_0.png",
+    "category": "watch",
+    "specific_category": "watch",
+    "broad_category": "accessory",
+    "raw_category": "watch",
+    "confidence": 0.2621,
+    "bbox": [
+      149,
+      573,
+      219,
+      628
+    ],
+    "crop_path": "outputs\\010930\\watch_0.png"
   }
 ]

@@ -3,15 +3,14 @@ yolo_detect_and_crop.py
 =======================
 Autonomous real-photo garment detection and extraction stage.
 Supports:
-  1. YOLO-World (Default: `yolov8s-worldv2.pt`): Fast, open-vocabulary fashion detector
+  1. YOLO-World (Default: `yolov8s-worldv2.pt`): Fast, high-accuracy fashion detector
      optimized for real user photos (selfies, mirror shots, street photos).
   2. YOLOS-Fashionpedia (`valentinafeve/yolos-fashionpedia`): Vision Transformer detector.
 
 Features:
   - Real-image input (no ground-truth annotations needed).
-  - Multi-garment localization with fine-grained clothing classifications (jacket, blouse, pants, shorts, skirt, dress, etc.).
-  - IoU-based Non-Maximum Suppression (NMS) deduplication.
-  - Full-context transparent RGBA garment isolation (U2Net) to avoid background noise.
+  - Mutually distinct clothing categories with cross-category NMS deduplication.
+  - Saliency-protected transparent garment isolation (U2Net) to preserve all fabric/logo details.
   - Standard repository contract outputs/<image_id>/ for downstream CLIP & GNN compatibility.
   - Annotated visual overlay image (<image_id>_vis.jpg) for explainability.
 """
@@ -26,24 +25,19 @@ import torch
 # Local imports
 try:
     from category_mapping import map_category
-    from bg_removal import remove_full_image_background, isolate_garment_background, is_rembg_available
+    from bg_removal import remove_full_image_background, safe_extract_crop, isolate_garment_background, is_rembg_available
 except ImportError:
     from real_image_pipeline.category_mapping import map_category
-    from real_image_pipeline.bg_removal import remove_full_image_background, isolate_garment_background, is_rembg_available
+    from real_image_pipeline.bg_removal import remove_full_image_background, safe_extract_crop, isolate_garment_background, is_rembg_available
 
-# Default to YOLO-World for real-world photo accuracy
 DEFAULT_MODEL_NAME = "yolo-world"
 DEFAULT_YOLO_WORLD_CHECKPOINT = "yolov8s-worldv2.pt"
 
-# Fashion vocabulary for YOLO-World zero-shot prompt
+# Clean, mutually distinct fashion classes for YOLO-World
 FASHION_VOCABULARY = [
-    "t-shirt", "shirt", "blouse", "sweater", "cardigan", "sweatshirt", "hoodie",
-    "jacket", "coat", "blazer", "vest",
-    "pants", "jeans", "shorts", "skirt", "stockings",
-    "dress", "jumpsuit",
-    "shoe", "sneakers", "boots", "sandals", "heels",
-    "bag", "handbag", "backpack",
-    "sunglasses", "glasses", "hat", "cap", "watch", "belt", "scarf", "tie"
+    "t-shirt", "shirt", "blouse", "sweater", "jacket", "coat",
+    "pants", "shorts", "skirt", "dress",
+    "shoes", "bag", "sunglasses", "hat", "watch"
 ]
 
 # Global cached model handles
@@ -124,8 +118,11 @@ def calculate_iou(box1: List[int], box2: List[int]) -> float:
     return intersection / union
 
 
-def apply_nms(detections: List[Dict], iou_threshold: float = 0.60) -> List[Dict]:
-    """Applies Non-Maximum Suppression (NMS) within each category and across duplicates."""
+def apply_nms(detections: List[Dict], iou_threshold: float = 0.50) -> List[Dict]:
+    """
+    Applies Non-Maximum Suppression (NMS) within each category
+    and Cross-Category Suppression for competing garment definitions on the same body region.
+    """
     if not detections:
         return []
 
@@ -137,8 +134,16 @@ def apply_nms(detections: List[Dict], iou_threshold: float = 0.60) -> List[Dict]
         discard = False
         for k in kept:
             iou = calculate_iou(cand["bbox"], k["bbox"])
-            # If same category with high overlap, or identical box with lower score
-            if (cand["category"] == k["category"] and iou > iou_threshold) or (iou > 0.85):
+            # Same category overlap
+            if cand["category"] == k["category"] and iou > 0.40:
+                discard = True
+                break
+            # Competing upper garment classes (e.g. sweater vs t-shirt vs blouse vs dress on same torso)
+            if cand["broad_category"] == k["broad_category"] and iou > 0.45:
+                discard = True
+                break
+            # Extreme box overlap
+            if iou > 0.65:
                 discard = True
                 break
         if not discard:
@@ -243,8 +248,8 @@ def detect_garments(
                 "bbox": [x1, y1, x2, y2]
             })
 
-    # Apply NMS deduplication
-    cleaned_detections = apply_nms(detections, iou_threshold=0.60)
+    # Apply deduplication
+    cleaned_detections = apply_nms(detections, iou_threshold=0.45)
     return image, cleaned_detections
 
 
@@ -292,9 +297,7 @@ def draw_visual_overlay(
         conf = det["confidence"]
         color = COLOR_PALETTE.get(cat, (239, 68, 68))
 
-        # Draw bounding box
         draw.rectangle([x1, y1, x2, y2], outline=color, width=3)
-
         label_text = f"{cat} ({conf:.2f})"
         text_bbox = draw.textbbox((x1, max(0, y1 - 18)), label_text, font=font) if font else (x1, y1 - 18, x1 + 80, y1)
         draw.rectangle(text_bbox, fill=color)
@@ -338,12 +341,10 @@ def process_image(
     garments_meta = []
     category_counters = {}
 
-    # Full image transparent foreground isolation (sharp, contextual, non-blurry)
+    transparent_full = None
     if remove_bg and detections:
         print("  [BG] Isolating sharp foreground transparency with U2Net...")
         transparent_full = remove_full_image_background(image)
-    else:
-        transparent_full = image.convert("RGBA")
 
     for det in detections:
         cat = det["category"]
@@ -353,8 +354,14 @@ def process_image(
         out_file_path = os.path.join(out_dir, filename)
 
         x1, y1, x2, y2 = det["bbox"]
-        # Crop directly from transparent image to preserve crisp garment edges
-        crop_rgba = transparent_full.crop((x1, y1, x2, y2))
+        raw_crop = image.crop((x1, y1, x2, y2))
+
+        if transparent_full is not None:
+            trans_crop = transparent_full.crop((x1, y1, x2, y2))
+            crop_rgba = safe_extract_crop(raw_crop, trans_crop, min_solid_ratio=0.30)
+        else:
+            crop_rgba = raw_crop.convert("RGBA")
+
         crop_rgba.save(out_file_path, format="PNG")
 
         meta_entry = {

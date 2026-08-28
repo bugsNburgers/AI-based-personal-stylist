@@ -5,7 +5,7 @@
     "specific_category": "sunglasses",
     "broad_category": "accessory",
     "raw_category": "sunglasses",
-    "confidence": 0.811,
+    "confidence": 0.817,
     "bbox": [
       290,
       0,
@@ -20,28 +20,13 @@
     "specific_category": "sweater",
     "broad_category": "top",
     "raw_category": "sweater",
-    "confidence": 0.4413,
+    "confidence": 0.483,
     "bbox": [
       2,
-      292,
+      291,
       461,
       702
     ],
     "crop_path": "outputs\\010931\\sweater_0.png"
-  },
-  {
-    "file": "shirt_blouse_0.png",
-    "category": "shirt_blouse",
-    "specific_category": "shirt_blouse",
-    "broad_category": "top",
-    "raw_category": "blouse",
-    "confidence": 0.3081,
-    "bbox": [
-      149,
-      333,
-      349,
-      496
-    ],
-    "crop_path": "outputs\\010931\\shirt_blouse_0.png"
   }
 ]

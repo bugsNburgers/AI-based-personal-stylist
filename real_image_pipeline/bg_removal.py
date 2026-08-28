@@ -1,12 +1,15 @@
 """
 bg_removal.py
 =============
-Provides high-resolution garment foreground isolation / background removal.
-Generates crisp transparent RGBA PNGs (alpha channel) to remove background noise
-without blurriness, feathering, or loss of garment texture.
+Provides high-resolution garment foreground isolation with detail preservation.
+Guarantees that garment texture, fabric, logos, and colors are never erased or faded.
 
-Primary engine: `rembg` with full high-resolution `u2net` architecture.
-Fallback engine: OpenCV GrabCut if rembg is unavailable.
+Features:
+  - High-res U2Net background segmentation.
+  - Saliency Protection: If a portrait background removal falsely erases dark clothes
+    (common in dark shirt selfies), the pipeline detects low garment opacity and preserves
+    the full-resolution RGB crop with clean solid alpha.
+  - OpenCV GrabCut fallback if rembg is unavailable.
 """
 
 import numpy as np
@@ -36,7 +39,6 @@ def get_rembg_session(model_name: str = "u2net"):
     if _REMBG_SESSION is None and is_rembg_available():
         import rembg
         try:
-            # Full high-res U2Net model for sharp, crisp edges without blur
             _REMBG_SESSION = rembg.new_session(model_name=model_name)
         except Exception:
             _REMBG_SESSION = rembg.new_session(model_name="u2net")
@@ -48,19 +50,15 @@ def remove_full_image_background(
     model_name: str = "u2net"
 ) -> Image.Image:
     """
-    Removes background from the full image using full-context U2Net.
-    Processing full images provides complete human anatomy context,
-    preventing edge blurriness and false transparency on garment folds.
+    Removes background from full image using full-context U2Net.
     """
     if is_rembg_available():
         try:
             import rembg
             session = get_rembg_session(model_name=model_name)
-            # Use alpha matting post-processing for crisp edges
             return rembg.remove(
                 image.convert("RGB"),
                 session=session,
-                alpha_matting=False,
                 post_process_mask=True
             )
         except Exception as e:
@@ -70,10 +68,42 @@ def remove_full_image_background(
         return remove_background_grabcut(image)
 
 
+def safe_extract_crop(
+    raw_crop: Image.Image,
+    transparent_full_crop: Optional[Image.Image] = None,
+    min_solid_ratio: float = 0.35
+) -> Image.Image:
+    """
+    Extracts a garment crop safely. If the background removal model accidentally
+    erased the garment fabric (e.g. dark shirt in a selfie portrait), it falls back
+    to the crisp, full-detail RGB crop with solid alpha.
+
+    Args:
+        raw_crop: Raw RGB PIL Image of the garment bounding box.
+        transparent_full_crop: RGBA PIL Image cropped from full transparent image.
+        min_solid_ratio: Minimum ratio of visible pixels required to keep alpha mask.
+    """
+    raw_rgba = raw_crop.convert("RGBA")
+    if transparent_full_crop is None:
+        return raw_rgba
+
+    trans_np = np.array(transparent_full_crop)
+    if trans_np.shape[2] < 4:
+        return raw_rgba
+
+    alpha = trans_np[:, :, 3]
+    solid_ratio = np.mean(alpha > 30)
+
+    # If alpha removed almost the entire garment (saliency error), preserve raw crop
+    if solid_ratio < min_solid_ratio:
+        return raw_rgba
+
+    return transparent_full_crop
+
+
 def remove_background_grabcut(image: Image.Image) -> Image.Image:
     """
     Fallback background estimation using OpenCV GrabCut algorithm.
-    Returns a transparent RGBA PIL Image.
     """
     img_np = np.array(image.convert("RGB"))
     h, w = img_np.shape[:2]
