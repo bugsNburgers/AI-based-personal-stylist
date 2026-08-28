@@ -1,13 +1,18 @@
 [
   {
-    "file": "top_0.png",
-    "raw_category": "short sleeve top",
-    "normalized_category": "top",
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.6992,
+    "pixel_count": 137004,
     "bbox": [
-      1,
-      198,
-      467,
-      701
-    ]
+      0,
+      291,
+      468,
+      702
+    ],
+    "crop_path": "outputs\\010931\\t_shirt_0.png"
   }
 ]

@@ -1,0 +1,66 @@
+[
+  {
+    "file": "sunglasses_0.png",
+    "category": "sunglasses",
+    "specific_category": "sunglasses",
+    "broad_category": "accessory",
+    "raw_category": "Sunglasses",
+    "confidence": 0.95,
+    "pixel_count": 531,
+    "bbox": [
+      193,
+      92,
+      229,
+      114
+    ],
+    "crop_path": "outputs\\010948\\sunglasses_0.png"
+  },
+  {
+    "file": "top_0.png",
+    "category": "top",
+    "specific_category": "top",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.3661,
+    "pixel_count": 6324,
+    "bbox": [
+      178,
+      196,
+      255,
+      323
+    ],
+    "crop_path": "outputs\\010948\\top_0.png"
+  },
+  {
+    "file": "pants_0.png",
+    "category": "pants",
+    "specific_category": "pants",
+    "broad_category": "bottom",
+    "raw_category": "Pants",
+    "confidence": 0.8083,
+    "pixel_count": 50415,
+    "bbox": [
+      85,
+      308,
+      308,
+      692
+    ],
+    "crop_path": "outputs\\010948\\pants_0.png"
+  },
+  {
+    "file": "shoe_0.png",
+    "category": "shoe",
+    "specific_category": "shoe",
+    "broad_category": "accessory",
+    "raw_category": "Shoe",
+    "confidence": 0.9,
+    "pixel_count": 1086,
+    "bbox": [
+      70,
+      648,
+      132,
+      692
+    ],
+    "crop_path": "outputs\\010948\\shoe_0.png"
+  }
+]

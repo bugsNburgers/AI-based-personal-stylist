@@ -1,24 +1,50 @@
 [
   {
-    "file": "bottom_0.png",
-    "raw_category": "shorts",
-    "normalized_category": "bottom",
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.5194,
+    "pixel_count": 148054,
     "bbox": [
-      275,
-      611,
-      639,
-      959
-    ]
+      26,
+      286,
+      592,
+      817
+    ],
+    "crop_path": "outputs\\010930\\t_shirt_0.png"
   },
   {
-    "file": "top_1.png",
-    "raw_category": "short sleeve top",
-    "normalized_category": "top",
+    "file": "pants_0.png",
+    "category": "pants",
+    "specific_category": "pants",
+    "broad_category": "bottom",
+    "raw_category": "Pants",
+    "confidence": 0.9066,
+    "pixel_count": 63468,
     "bbox": [
-      23,
-      245,
-      594,
-      821
-    ]
+      172,
+      693,
+      640,
+      960
+    ],
+    "crop_path": "outputs\\010930\\pants_0.png"
+  },
+  {
+    "file": "bag_0.png",
+    "category": "bag",
+    "specific_category": "bag",
+    "broad_category": "accessory",
+    "raw_category": "Bag",
+    "confidence": 0.95,
+    "pixel_count": 4637,
+    "bbox": [
+      102,
+      211,
+      343,
+      514
+    ],
+    "crop_path": "outputs\\010930\\bag_0.png"
   }
 ]

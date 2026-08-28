@@ -1,0 +1,50 @@
+[
+  {
+    "file": "shirt_blouse_0.png",
+    "category": "shirt_blouse",
+    "specific_category": "shirt_blouse",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.4381,
+    "pixel_count": 74770,
+    "bbox": [
+      20,
+      46,
+      457,
+      344
+    ],
+    "crop_path": "outputs\\010944\\shirt_blouse_0.png"
+  },
+  {
+    "file": "skirt_0.png",
+    "category": "skirt",
+    "specific_category": "skirt",
+    "broad_category": "bottom",
+    "raw_category": "Skirt",
+    "confidence": 0.95,
+    "pixel_count": 70521,
+    "bbox": [
+      93,
+      313,
+      406,
+      624
+    ],
+    "crop_path": "outputs\\010944\\skirt_0.png"
+  },
+  {
+    "file": "bag_0.png",
+    "category": "bag",
+    "specific_category": "bag",
+    "broad_category": "accessory",
+    "raw_category": "Bag",
+    "confidence": 0.95,
+    "pixel_count": 1650,
+    "bbox": [
+      193,
+      65,
+      244,
+      119
+    ],
+    "crop_path": "outputs\\010944\\bag_0.png"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "file": "shirt_blouse_0.png",
+    "category": "shirt_blouse",
+    "specific_category": "shirt_blouse",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.6027,
+    "pixel_count": 141917,
+    "bbox": [
+      0,
+      287,
+      468,
+      702
+    ],
+    "crop_path": "outputs\\010933\\shirt_blouse_0.png"
+  }
+]

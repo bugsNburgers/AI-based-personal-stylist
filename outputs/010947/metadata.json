@@ -1,0 +1,50 @@
+[
+  {
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.3904,
+    "pixel_count": 25126,
+    "bbox": [
+      243,
+      0,
+      395,
+      207
+    ],
+    "crop_path": "outputs\\010947\\t_shirt_0.png"
+  },
+  {
+    "file": "pants_0.png",
+    "category": "pants",
+    "specific_category": "pants",
+    "broad_category": "bottom",
+    "raw_category": "Pants",
+    "confidence": 0.8953,
+    "pixel_count": 133796,
+    "bbox": [
+      165,
+      190,
+      442,
+      819
+    ],
+    "crop_path": "outputs\\010947\\pants_0.png"
+  },
+  {
+    "file": "shoe_0.png",
+    "category": "shoe",
+    "specific_category": "shoe",
+    "broad_category": "accessory",
+    "raw_category": "Shoe",
+    "confidence": 0.9,
+    "pixel_count": 2372,
+    "bbox": [
+      184,
+      755,
+      261,
+      835
+    ],
+    "crop_path": "outputs\\010947\\shoe_0.png"
+  }
+]

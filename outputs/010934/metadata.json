@@ -1,0 +1,18 @@
+[
+  {
+    "file": "t_shirt_0.png",
+    "category": "t_shirt",
+    "specific_category": "t_shirt",
+    "broad_category": "top",
+    "raw_category": "Upper-clothes",
+    "confidence": 0.686,
+    "pixel_count": 256629,
+    "bbox": [
+      0,
+      397,
+      640,
+      960
+    ],
+    "crop_path": "outputs\\010934\\t_shirt_0.png"
+  }
+]
