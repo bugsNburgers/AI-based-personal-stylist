@@ -5,6 +5,7 @@ An end-to-end intelligent fashion pipeline that transforms wild, real-world user
 ---
 
 ## 🚀 Architecture Overview
+ ******(This is not the complete/accurate architecture --- this is just an overview of how my model works + how it is seeing whats the next step after extraction of vector embeddings)***
 
 ```mermaid
 flowchart LR
