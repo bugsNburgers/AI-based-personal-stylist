@@ -25,10 +25,10 @@ import torch
 # Local imports
 try:
     from category_mapping import map_category
-    from bg_removal import remove_full_image_background, safe_extract_crop, isolate_garment_background, is_rembg_available
+    from bg_removal import isolate_garment_with_segformer, get_fashion_semantic_mask, isolate_garment_background
 except ImportError:
     from real_image_pipeline.category_mapping import map_category
-    from real_image_pipeline.bg_removal import remove_full_image_background, safe_extract_crop, isolate_garment_background, is_rembg_available
+    from real_image_pipeline.bg_removal import isolate_garment_with_segformer, get_fashion_semantic_mask, isolate_garment_background
 
 DEFAULT_MODEL_NAME = "yolo-world"
 DEFAULT_YOLO_WORLD_CHECKPOINT = "yolov8s-worldv2.pt"
@@ -135,11 +135,13 @@ def apply_nms(detections: List[Dict], iou_threshold: float = 0.50) -> List[Dict]
         for k in kept:
             iou = calculate_iou(cand["bbox"], k["bbox"])
             # Same category overlap
-            if cand["category"] == k["category"] and iou > 0.40:
+            if cand.get("category") == k.get("category") and iou > 0.40:
                 discard = True
                 break
             # Competing upper garment classes (e.g. sweater vs t-shirt vs blouse vs dress on same torso)
-            if cand["broad_category"] == k["broad_category"] and iou > 0.45:
+            cand_broad = cand.get("broad_category")
+            k_broad = k.get("broad_category")
+            if cand_broad is not None and k_broad is not None and cand_broad == k_broad and iou > 0.45:
                 discard = True
                 break
             # Extreme box overlap
@@ -341,10 +343,13 @@ def process_image(
     garments_meta = []
     category_counters = {}
 
-    transparent_full = None
+    segformer_pred_mask = None
     if remove_bg and detections:
-        print("  [BG] Isolating sharp foreground transparency with U2Net...")
-        transparent_full = remove_full_image_background(image)
+        print("  [BG] Isolating pixel-perfect garment contours with SegFormer...")
+        try:
+            segformer_pred_mask, _ = get_fashion_semantic_mask(image, device=device)
+        except Exception as e:
+            print(f"  [WARN] SegFormer failed ({e}), using bounding box crops...")
 
     for det in detections:
         cat = det["category"]
@@ -354,13 +359,16 @@ def process_image(
         out_file_path = os.path.join(out_dir, filename)
 
         x1, y1, x2, y2 = det["bbox"]
-        raw_crop = image.crop((x1, y1, x2, y2))
-
-        if transparent_full is not None:
-            trans_crop = transparent_full.crop((x1, y1, x2, y2))
-            crop_rgba = safe_extract_crop(raw_crop, trans_crop, min_solid_ratio=0.30)
+        if remove_bg and segformer_pred_mask is not None:
+            crop_rgba = isolate_garment_with_segformer(
+                image,
+                bbox=[x1, y1, x2, y2],
+                category=cat,
+                segformer_pred_mask=segformer_pred_mask,
+                device=device
+            )
         else:
-            crop_rgba = raw_crop.convert("RGBA")
+            crop_rgba = image.crop((x1, y1, x2, y2)).convert("RGBA")
 
         crop_rgba.save(out_file_path, format="PNG")
 
