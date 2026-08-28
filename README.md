@@ -1,6 +1,6 @@
 # 👗 AI-Based Personal Stylist
 
-An end-to-end intelligent fashion pipeline that transforms wild, real-world user photos (selfies, full-body, street photos) into pixel-accurate garment cutouts, extracts 512-D normalized CLIP vector representations, and scores outfit harmony and compatibility using a Graph Neural Network (GNN).
+An end-to-end intelligent fashion pipeline that transforms wild, real-world user photos (selfies, full-body, street photos) into pixel-accurate garment cutouts, extracts 512-D normalized CLIP vector representations, and provides graph-ready representations for downstream outfit compatibility and harmony modeling.
 
 ---
 
@@ -11,9 +11,8 @@ flowchart LR
     A["Raw User Photo (Selfie / Street)"] --> B["Fashion Parsing (SegFormer-B2)"]
     B --> C["Pixel-Isolated Transparent Crops (.png)"]
     C --> D["CLIP ViT-B/32 (512-D L2-Normalized .npy)"]
-    D --> E["Outfit Graph G = (V, E)"]
-    E --> F["TrynTest/gnn_outfit_compatibility_v2.py"]
-    F --> G["Harmony & Compatibility Score [0, 1]"]
+    D --> E["Outfit Graph Representation"]
+    E --> F["Downstream GNN Compatibility Engine"]
 ```
 
 ---
@@ -27,16 +26,18 @@ AI-based-personal-stylist/
 │   ├── clip_extract_embeddings.py # 512-D L2-Normalized CLIP Visual Feature Extractor
 │   ├── category_mapping.py        # Fashion Taxonomy & Category Group Normalization
 │   ├── run_pipeline.py            # CLI Orchestrator (Single Image & Batch Processing)
-│   ├── test_pipeline.py           # Automated Test Suite
+│   ├── test_pipeline.py           # Automated Test Suite (100% Passing)
 │   ├── requirements.txt           # Python Dependencies
 │   └── PIPELINE_HANDOFF_GUIDE.md  # Detailed Engineering & Perception Documentation
 │
-├── TrynTest/                      # 🧠 Graph Neural Network (GNN) Outfit Scoring
-│   ├── gnn_outfit_compatibility_v2.py # Weighted Outfit GNN (Compatibility & FITB)
-│   └── PIPELINE_HANDOFF_GUIDE.md  # Direct GNN Handoff & Graph Construction Spec
+├── Docs/                          # 📚 Comprehensive Documentation & Technical Reports
+│   ├── PIPELINE_HANDOFF_GUIDE.md  # Architecture, Evolution (Pehle vs Abhi) & GNN Spec
+│   ├── DOCCCC.md                  # Project Documentation
+│   ├── Implementation_challenges.md # Analysis of Edge Cases & Challenges
+│   └── venv.md                    # Environment Setup Guide
 │
 ├── data/
-│   └── input_images/              # Real-world benchmark user photos (010930 - 010950)
+│   └── input_images/              # 21 Benchmark Real-World User Photos (010930 - 010950)
 │
 ├── outputs/                       # Processed garment cutouts, embeddings & metadata
 │   ├── 010930/ ... 010950/
@@ -45,7 +46,8 @@ AI-based-personal-stylist/
 │   │   └── metadata.json          # Bounding boxes, categories & confidence
 │   └── *_vis.jpg                  # Annotated visual inspection overlays
 │
-└── requirements.txt               # Top-level dependencies
+├── requirements.txt               # Top-level dependencies
+└── README.md                      # Project Overview
 ```
 
 ---
@@ -83,7 +85,7 @@ python real_image_pipeline/test_pipeline.py
 
 ---
 
-## 📖 Documentation & GNN Handoff
+## 📖 Detailed Documentation & Handoff Guide
 For the complete technical deep dive and PyTorch Geometric graph loader instructions, see:
+- **[`Docs/PIPELINE_HANDOFF_GUIDE.md`](file:///c:/Users/Suprateek%20Yawagal/OneDrive/Documents/AI-based-personal-stylist/Docs/PIPELINE_HANDOFF_GUIDE.md)**
 - **[`real_image_pipeline/PIPELINE_HANDOFF_GUIDE.md`](file:///c:/Users/Suprateek%20Yawagal/OneDrive/Documents/AI-based-personal-stylist/real_image_pipeline/PIPELINE_HANDOFF_GUIDE.md)**
-- **[`TrynTest/PIPELINE_HANDOFF_GUIDE.md`](file:///c:/Users/Suprateek%20Yawagal/OneDrive/Documents/AI-based-personal-stylist/TrynTest/PIPELINE_HANDOFF_GUIDE.md)**
