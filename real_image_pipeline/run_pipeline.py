@@ -2,17 +2,17 @@
 run_pipeline.py
 ===============
 End-to-End Real-Image Garment Understanding Pipeline:
-Input Photo -> YOLOS Detection -> Transparent Isolation (no background) -> CLIP Embedding (512-D)
+Input Photo -> YOLO-World / YOLOS Detection -> Transparent Isolation (U2Net) -> CLIP Embedding (512-D)
 
 Usage:
-  # Single image:
-  python run_pipeline.py --image data/input_images/010931.jpg
+  # Single image (Default: YOLO-World):
+  python real_image_pipeline/run_pipeline.py --image data/input_images/010931.jpg
 
   # Batch of real photos:
-  python run_pipeline.py --input_dir data/input_images/ --batch_limit 5
+  python real_image_pipeline/run_pipeline.py --input_dir data/input_images/ --batch_limit 5
 
-  # Custom output root & threshold:
-  python run_pipeline.py --image my_outfit.jpg --output_dir outputs --threshold 0.35
+  # Custom output root, threshold & model:
+  python real_image_pipeline/run_pipeline.py --image my_outfit.jpg --output_dir outputs --threshold 0.25 --model yolo-world
 """
 
 import os
@@ -27,7 +27,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-from yolo_detect_and_crop import process_image, DEFAULT_CONF_THRESHOLD
+from yolo_detect_and_crop import process_image, DEFAULT_MODEL_NAME
 from clip_extract_embeddings import extract_folder_embeddings
 
 
@@ -35,7 +35,8 @@ def run_single_image(
     image_path: str,
     image_id: Optional[str] = None,
     output_root: str = "outputs",
-    conf_threshold: float = DEFAULT_CONF_THRESHOLD,
+    conf_threshold: float = 0.20,
+    model_name: str = DEFAULT_MODEL_NAME,
     specific: bool = True,
     remove_bg: bool = True,
     device: Optional[str] = None
@@ -44,9 +45,9 @@ def run_single_image(
     Runs the complete pipeline for a single real image.
 
     Steps:
-      1. Detect garments with YOLOS-Fashionpedia.
-      2. Normalize categories (top, bottom, outerwear, dress, shoe, bag, accessory).
-      3. Crop and extract transparent RGBA garment PNGs (background removal).
+      1. Detect garments with YOLO-World / YOLOS.
+      2. Normalize categories (jacket, blouse, pants, shorts, skirt, dress, shoe, bag, sunglasses, etc.).
+      3. Crop and extract transparent RGBA garment PNGs (high-res U2Net background removal).
       4. Save metadata.json and visual overlay <image_id>_vis.jpg.
       5. Compute 512-D normalized CLIP vector embeddings and save as .npy.
     """
@@ -58,6 +59,7 @@ def run_single_image(
     print(f"[PIPELINE] AI PERSONAL STYLIST PIPELINE: {image_id}")
     print("=" * 65)
     print(f"  Input Image       : {image_path}")
+    print(f"  Detector Model    : {model_name}")
     print(f"  Confidence Thresh : {conf_threshold}")
     print(f"  Background Removal: {'Enabled (Transparent RGBA)' if remove_bg else 'Disabled (Raw BBox)'}")
 
@@ -67,6 +69,7 @@ def run_single_image(
         image_id=image_id,
         output_root=output_root,
         conf_threshold=conf_threshold,
+        model_name=model_name,
         specific=specific,
         remove_bg=remove_bg,
         device=device
@@ -102,7 +105,8 @@ def run_single_image(
 def run_batch_images(
     input_dir: str,
     output_root: str = "outputs",
-    conf_threshold: float = DEFAULT_CONF_THRESHOLD,
+    conf_threshold: float = 0.20,
+    model_name: str = DEFAULT_MODEL_NAME,
     specific: bool = True,
     remove_bg: bool = True,
     batch_limit: Optional[int] = None,
@@ -131,6 +135,7 @@ def run_batch_images(
             image_path=img_path,
             output_root=output_root,
             conf_threshold=conf_threshold,
+            model_name=model_name,
             specific=specific,
             remove_bg=remove_bg,
             device=device
@@ -152,7 +157,8 @@ def main():
 
     parser.add_argument("--image_id", type=str, default=None, help="Optional image ID override")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Output directory root (default: outputs)")
-    parser.add_argument("--threshold", type=float, default=DEFAULT_CONF_THRESHOLD, help="Detection confidence threshold")
+    parser.add_argument("--threshold", type=float, default=0.20, help="Detection confidence threshold (default: 0.20)")
+    parser.add_argument("--model", type=str, default="yolo-world", help="Detector model: 'yolo-world' or 'yolos'")
     parser.add_argument("--broad", action="store_true", help="Use broad categories instead of specific garment names")
     parser.add_argument("--no_bg_removal", action="store_true", help="Disable transparent background removal")
     parser.add_argument("--batch_limit", type=int, default=None, help="Max images to process in batch mode")
@@ -160,12 +166,15 @@ def main():
 
     args = parser.parse_args()
 
+    model_arg = "valentinafeve/yolos-fashionpedia" if args.model.lower() == "yolos" else args.model
+
     if args.image:
         run_single_image(
             image_path=args.image,
             image_id=args.image_id,
             output_root=args.output_dir,
             conf_threshold=args.threshold,
+            model_name=model_arg,
             specific=not args.broad,
             remove_bg=not args.no_bg_removal,
             device=args.device
@@ -175,6 +184,7 @@ def main():
             input_dir=args.input_dir,
             output_root=args.output_dir,
             conf_threshold=args.threshold,
+            model_name=model_arg,
             specific=not args.broad,
             remove_bg=not args.no_bg_removal,
             batch_limit=args.batch_limit,

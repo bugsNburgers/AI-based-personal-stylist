@@ -1,47 +1,47 @@
 [
   {
-    "file": "pants_0.png",
-    "category": "pants",
-    "specific_category": "pants",
-    "broad_category": "bottom",
-    "raw_category": "pants",
-    "confidence": 0.3074,
-    "bbox": [
-      0,
-      394,
-      467,
-      702
-    ],
-    "crop_path": "outputs\\010931\\pants_0.png"
-  },
-  {
-    "file": "t_shirt_0.png",
-    "category": "t_shirt",
-    "specific_category": "t_shirt",
-    "broad_category": "top",
-    "raw_category": "top, t-shirt, sweatshirt",
-    "confidence": 0.2857,
-    "bbox": [
-      0,
-      302,
-      467,
-      702
-    ],
-    "crop_path": "outputs\\010931\\t_shirt_0.png"
-  },
-  {
-    "file": "watch_0.png",
-    "category": "watch",
-    "specific_category": "watch",
+    "file": "sunglasses_0.png",
+    "category": "sunglasses",
+    "specific_category": "sunglasses",
     "broad_category": "accessory",
-    "raw_category": "watch",
-    "confidence": 0.2675,
+    "raw_category": "sunglasses",
+    "confidence": 0.811,
+    "bbox": [
+      290,
+      0,
+      467,
+      87
+    ],
+    "crop_path": "outputs\\010931\\sunglasses_0.png"
+  },
+  {
+    "file": "sweater_0.png",
+    "category": "sweater",
+    "specific_category": "sweater",
+    "broad_category": "top",
+    "raw_category": "sweater",
+    "confidence": 0.4413,
     "bbox": [
       2,
-      211,
-      68,
-      288
+      292,
+      461,
+      702
     ],
-    "crop_path": "outputs\\010931\\watch_0.png"
+    "crop_path": "outputs\\010931\\sweater_0.png"
+  },
+  {
+    "file": "shirt_blouse_0.png",
+    "category": "shirt_blouse",
+    "specific_category": "shirt_blouse",
+    "broad_category": "top",
+    "raw_category": "blouse",
+    "confidence": 0.3081,
+    "bbox": [
+      149,
+      333,
+      349,
+      496
+    ],
+    "crop_path": "outputs\\010931\\shirt_blouse_0.png"
   }
 ]
